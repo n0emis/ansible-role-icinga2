@@ -23,6 +23,14 @@
     owner: "{{icinga2_user[ansible_os_family]}}"
     group: "{{icinga2_group[ansible_os_family]}}"
 
+- name: ensure certificate folder exists
+  file:
+    dest: /var/lib/icinga2/certs
+    state: directory
+    mode: 0700
+    owner: "{{icinga2_user[ansible_os_family]}}"
+    group: "{{icinga2_group[ansible_os_family]}}"
+
 - name: create cert
   shell: |
     {{ icinga2_binary }} pki new-cert \

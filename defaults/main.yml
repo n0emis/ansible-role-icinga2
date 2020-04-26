@@ -48,7 +48,7 @@ icinga2_mysql_ssl_ca_path: "/etc/ssl/ca"
 icinga2_mysql_ssl_certs_ca_path: "{{icinga2_mysql_ssl_ca_path}}/ca.crt"
 icinga2_mysql_ssl_certs_privkey_path: "{{icinga2_mysql_ssl_certs_path}}/server.key"
 icinga2_mysql_ssl_certs_cert_path: "{{icinga2_mysql_ssl_certs_path}}/server.crt"
-icinga2_ansible_user_dir: "{{ ('/' if ansible_user == 'root' else '/home/') + ansible_user | quote }}"
+icinga2_ansible_user_dir: "{{ ansible_user_dir | quote }}"
 
 # add icinga2 user to ssl group
 icinga2_mysql_ssl_cert_groupname: sslcert

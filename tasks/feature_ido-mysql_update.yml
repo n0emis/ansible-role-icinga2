@@ -32,7 +32,7 @@
   ignore_errors: yes
   register: schema_result
   changed_when: schema_result.rc == 0
-                and schema_result.stdout | version_compare((icinga2_schema_upgrade_dbversions.stdout_lines|last), operator='lt', strict=True)
+                and schema_result.stdout is version_compare((icinga2_schema_upgrade_dbversions.stdout_lines|last), operator='lt', strict=True)
   tags:
     - update
 
@@ -53,7 +53,7 @@
     - "{{ icinga2_schema_upgrade_dbversions.stdout_lines }}"
     - "{{ icinga2_schema_upgrade_icingaversions.stdout_lines }}"
   when: schema_result.changed
-        and item.0 | version_compare(schema_result.stdout, operator='gt', strict=True)
+        and item.0 is version_compare(schema_result.stdout, operator='gt', strict=True)
         and not icinga2_mysql_ssl_X509
   tags:
     - update
@@ -76,7 +76,7 @@
     - "{{ icinga2_schema_upgrade_dbversions.stdout_lines }}"
     - "{{ icinga2_schema_upgrade_icingaversions.stdout_lines }}"
   when: schema_result.changed
-        and item.0 | version_compare(schema_result.stdout, operator='gt', strict=True)
+        and item.0 is version_compare(schema_result.stdout, operator='gt', strict=True)
         and icinga2_mysql_ssl_X509
   tags:
     - update
