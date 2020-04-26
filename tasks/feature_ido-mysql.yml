@@ -43,7 +43,7 @@
     --ssl-key={{ icinga2_ido_options.ssl_key }}
     -Ns -e "SHOW TABLES LIKE 'icinga_dbversion'"
   changed_when: False
-  register: table_exists
+  register: table_exists_ssl
   when: icinga2_ido_options.ssl_key is defined
 
 - name: Import icinga2 schema
@@ -67,7 +67,7 @@
     target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
   ignore_errors: yes
   run_once: true
-  when: table_exists.stdout == ""
+  when: table_exists.stdout == "" or table_exists_ssl.stdout == ""
   tags:
     - mysqlConnect
 
@@ -78,4 +78,3 @@
     src: templates/ido-mysql.j2
     mode: 0640
   notify: Test config before restart icinga 2
-

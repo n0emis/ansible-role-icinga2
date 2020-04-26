@@ -1,9 +1,9 @@
 ---
 
-- name: Manage icinga2 apiusers.conf
+- name: Manage icinga2 api-users.conf
   template:
-    src: apiusers.conf.j2
-    dest: /etc/icinga2/custom_conf.d/apiusers.conf
+    src: api-users.conf.j2
+    dest: /etc/icinga2/conf.d/api-users.conf
     owner: "{{icinga2_user[ansible_os_family]}}"
     group: "{{icinga2_group[ansible_os_family]}}"
     mode: 0640

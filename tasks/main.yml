@@ -28,6 +28,12 @@
     regexp: '^include_recursive'
     line: 'include_recursive "custom_conf.d"'
 
+- name: include api-users
+  lineinfile:
+    path: /etc/icinga2/icinga2.conf
+    regexp: '^include "conf.d/api-users.conf"'
+    line: 'include "conf.d/api-users.conf"'
+
 - name: "upgrade IDO schema"
   include_tasks: "feature_ido-mysql_update.yml"
   when: track_icinga2_install is defined
@@ -40,7 +46,7 @@
 
 - name: Include special feature tasks for {{ icinga2_feature_name }}
   include_tasks: "feature_{{ icinga2_feature_name }}.yml"
-  vars: 
+  vars:
     icinga2_feature_name: "{{fItem.key}}"
   with_dict: "{{ feature_has_handler }}"
   loop_control:
