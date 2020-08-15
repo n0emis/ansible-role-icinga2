@@ -1,0 +1,12 @@
+---
+icinga2_packages_debian:
+  - icinga2
+  - bash-completion
+  - vim-icinga2
+  - monitoring-plugins
+  - vim
+  - mysql-client
+
+icinga2_apt_repo:
+  repo: "deb http://packages.icinga.com/{{ ansible_distribution | lower }} icinga-{{ ansible_distribution_release }} main"
+  gpgkey: http://packages.icinga.com/icinga.key

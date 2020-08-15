@@ -1,7 +1,7 @@
 ---
 
 - name: "Install icinga2 on Linux"
-  include_tasks: "install-{{ ansible_os_family }}.yml"
+  include_tasks: "install.yml"
   tags:
     - install
     - update
@@ -11,16 +11,16 @@
     dest: /etc/icinga2/custom_conf.d
     state: directory
     mode: 0700
-    owner: "{{icinga2_user[ansible_os_family]}}"
-    group: "{{icinga2_group[ansible_os_family]}}"
+    owner: "{{ icinga2_user}}"
+    group: "{{ icinga2_group }}"
 
 - name: create directory /etc/icinga2/zones.d/global-templates
   file:
     dest: "/etc/icinga2/zones.d/global-templates"
     state: directory
     mode: 0700
-    owner: "{{icinga2_user[ansible_os_family]}}"
-    group: "{{icinga2_group[ansible_os_family]}}"
+    owner: "{{ icinga2_user }}"
+    group: "{{ icinga2_group }}"
 
 - name: exclude conf.d, include custom_conf.d
   lineinfile:
@@ -40,15 +40,15 @@
         and track_icinga2_install.changed
 
 - name: "Config Role"
-  include_tasks: "config-{{icinga2_role}}.yml"
+  include_tasks: "config-{{ icinga2_role }}.yml"
   tags:
     - zones
 
 - name: Include special feature tasks for {{ icinga2_feature_name }}
   include_tasks: "feature_{{ icinga2_feature_name }}.yml"
   vars:
-    icinga2_feature_name: "{{fItem.key}}"
-  with_dict: "{{ feature_has_handler }}"
+    icinga2_feature_name: "{{ fItem.key }}"
+  with_dict: "{{ icinga2_feature_has_handler }}"
   loop_control:
     loop_var: fItem
   when: fItem.value and (icinga2_feature_name in icinga2_features)
@@ -59,8 +59,8 @@
 - name: include feature tasks
   include_tasks: "feature_generic.yml"
   vars:
-    icinga2_feature_name: "{{fItem.key}}"
-  with_dict: "{{ feature_has_handler }}"
+    icinga2_feature_name: "{{ fItem.key }}"
+  with_dict: "{{ icinga2_feature_has_handler }}"
   loop_control:
     loop_var: fItem
 

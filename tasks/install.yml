@@ -23,4 +23,4 @@
     name: "{{ item }}"
     state: "{{ icinga2_state }}"
   register: track_icinga2_install
-  with_items: "{{ packages_debian }}" 
+  with_items: "{{ icinga2_packages_debian }}"

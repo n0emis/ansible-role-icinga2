@@ -2,17 +2,9 @@
 
 - name: install the latest version of icinga2-ido-mysql
   package:
-    name: "{{ item }}"
+    name: "icinga2-ido-mysql"
     state: present
-  with_items:
-    - icinga2-ido-mysql
   notify: Test config before restart icinga 2
-
-- name: Install MySQL-python on RedHat
-  yum:
-    name: MySQL-python
-    state: present
-  when: ansible_os_family == 'RedHat'
 
 - name: Check IDO schema version in MySQL (no ssl)
   command:
@@ -54,17 +46,11 @@
     login_password: "{{ icinga2_ido_password }}"
     config_file: "{{ icinga2_ansible_user_dir }}/.my.cnf"
     name: "{{ icinga2_ido_dbname }}"
-    target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
-    state: import
-    name: "{{ icinga2_ido_dbname }}"
-    login_host: "{{ icinga2_ido_host }}"
-    login_port: "{{ icinga2_ido_port }}"
-    login_user: "{{ icinga2_ido_user }}"
-    login_password: "{{ icinga2_ido_password|default(omit) }}"
     ssl_cert: "{{ icinga2_ido_options.ssl_key|default(omit) }}"
     ssl_key: "{{ icinga2_ido_options.ssl_cert|default(omit) }}"
     ssl_ca: "{{ icinga2_mysql_ssl_certs_ca_path|default(omit) }}"
-    target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
+    target: "/usr/share/icinga2-ido-mysql/schema/mysql.sql"
+    state: import
   ignore_errors: yes
   run_once: true
   when: table_exists.stdout == "" or table_exists_ssl.stdout == ""

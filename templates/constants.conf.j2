@@ -4,26 +4,26 @@
  */
 
 /* The directory which contains the plugins from the Monitoring Plugins project. */
-const PluginDir = "{{icinga2_PluginDir}}"
+const PluginDir = "{{ icinga2_plugin_dir }}"
 
 /* The directory which contains the Manubulon plugins.
  * Check the documentation, chapter "SNMP Manubulon Plugin Check Commands", for details.
  */
-const ManubulonPluginDir = "{{icinga2_ManubulonPluginDir}}"
+const ManubulonPluginDir = "{{ icinga2_manubulon_plugin_dir }}"
 
 /* The directory which you use to store additional plugins which ITL provides user contributed command definitions for.
  * Check the documentation, chapter "Plugins Contribution", for details.
  */
-const PluginContribDir = "{{icinga2_PluginContribDir}}"
+const PluginContribDir = "{{ icinga2_plugin_contrib_dir }}"
 
 /* Our local instance name. By default this is the server's hostname as returned by `hostname --fqdn`.
  * This should be the common name from the API certificate.
  */
 //const NodeName = "localhost"
-const NodeName = "{{icinga2_nodename}}"
+const NodeName = "{{ icinga2_nodename }}"
 
 /* Our local zone name. */
-const ZoneName = "{{icinga2_ZoneName}}"
+const ZoneName = "{{ icinga2_ZoneName }}"
 
 /* Secret key for remote node tickets */
-const TicketSalt = "{{icinga2_ticketsalt}}"
+const TicketSalt = "{{ icinga2_ticketsalt }}"

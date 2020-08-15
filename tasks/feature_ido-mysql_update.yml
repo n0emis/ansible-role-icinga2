@@ -46,7 +46,7 @@
     config_file: "{{ icinga2_ansible_user_dir }}/.my.cnf"
     name: "{{ icinga2_ido_dbname }}"
     ssl_ca: "{{ icinga2_mysql_ssl_certs_ca_path|quote if ( icinga2_mysql_ssl_verify_server_cert or icinga2_mysql_ssl_X509 or icinga2_mysql_ssl ) else NONE }}"
-    target: "/usr/share/icinga2-ido-mysql/schema/upgrade/{{item.1}}.sql"
+    target: "/usr/share/icinga2-ido-mysql/schema/upgrade/{{ item.1}}.sql"
     state: import
   run_once: true
   with_together:
@@ -69,7 +69,7 @@
     ssl_ca: "{{ icinga2_mysql_ssl_certs_ca_path|quote if ( icinga2_mysql_ssl_verify_server_cert or icinga2_mysql_ssl_X509 or icinga2_mysql_ssl ) else NONE }}"
     ssl_cert: "{{ icinga2_mysql_ssl_certs_cert_path|quote if ( icinga2_mysql_ssl_X509 ) else 'None' }}"
     ssl_key: "{{ icinga2_mysql_ssl_certs_privkey_path|quote if ( icinga2_mysql_ssl_X509 ) else 'None' }}"
-    target: "/usr/share/icinga2-ido-mysql/schema/upgrade/{{item.1}}.sql"
+    target: "/usr/share/icinga2-ido-mysql/schema/upgrade/{{ item.1}}.sql"
     state: import
   run_once: true
   with_together:

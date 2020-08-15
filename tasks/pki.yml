@@ -1,6 +1,6 @@
 ---
 - debug:
-    msg: "System {{ inventory_hostname }} will be an icinga2 {{icinga2_role}}"
+    msg: "System {{ inventory_hostname }} will be an icinga2 {{ icinga2_role }}"
   tags:
     - install
     - config
@@ -20,16 +20,16 @@
     dest: /etc/icinga2/pki
     state: directory
     mode: 0700
-    owner: "{{icinga2_user[ansible_os_family]}}"
-    group: "{{icinga2_group[ansible_os_family]}}"
+    owner: "{{ icinga2_user }}"
+    group: "{{ icinga2_group }}"
 
 - name: ensure certificate folder exists
   file:
     dest: /var/lib/icinga2/certs
     state: directory
     mode: 0700
-    owner: "{{icinga2_user[ansible_os_family]}}"
-    group: "{{icinga2_group[ansible_os_family]}}"
+    owner: "{{ icinga2_user }}"
+    group: "{{ icinga2_group }}"
 
 - name: create cert
   shell: |
@@ -46,7 +46,7 @@
   shell: "{{ icinga2_binary }} pki ticket --cn {{ icinga2_nodename }}"
   register: icinga2_client_ticket
   changed_when: False
-  delegate_to: "{{icinga2_ca_host}}"
+  delegate_to: "{{ icinga2_ca_host }}"
 
 - name: save the masters cert as trustedcert
   shell: |

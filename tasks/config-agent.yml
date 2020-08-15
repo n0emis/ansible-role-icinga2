@@ -1,6 +1,6 @@
 ---
 - debug:
-    msg: "System {{ inventory_hostname }} will be an icinga2 {{icinga2_role}}"
+    msg: "System {{ inventory_hostname }} will be an icinga2 {{ icinga2_role }}"
   tags:
     - install
     - config

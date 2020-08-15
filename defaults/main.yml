@@ -1,54 +1,25 @@
 ---
+icinga2_binary: /usr/sbin/icinga2
+icinga2_api_port: 5665
+icinga2_service: icinga2
+icinga2_user: nagios
+icinga2_group: nagios
 
 # icinga2 settings
 # role can be agent, master or satellite
 icinga2_role: agent
 icinga2_ca_host: false
-icinga2_cert_request_host: "{{icinga2_ca_host}}"
-icinga2_PluginDir: /usr/lib64/nagios/plugins
-icinga2_ManubulonPluginDir: "{{icinga2_PluginDir}}"
-icinga2_PluginContribDir: "{{icinga2_PluginDir}}"
+icinga2_cert_request_host: "{{ icinga2_ca_host }}"
+icinga2_plugin_dir: /usr/lib64/nagios/plugins
+icinga2_manubulon_plugin_dir: "{{ icinga2_plugin_dir }}"
+icinga2_plugin_contrib_dir: "{{ icinga2_plugin_dir }}"
 icinga2_nodename: "{{ hostvars[inventory_hostname]['ansible_fqdn'] }}"
 icinga2_ZoneName: master
 icinga2_features: [ "checker", "api", "mainlog" ]
 icinga2_ticketsalt: "fiem2ai0pies5limiu3EeSh8ooFoyai4"
 
-# Manage package repos
-icinga2_manage_repo_icinga: true
-icinga2_manage_repo_epel: true
-
 # Version can be installed,latest,removed,absent,present,build-dep
 icinga2_state: present
-
-# ido-mysql/pgsql vars
-# icinga2 ido connection (same as in chrnie.icinga2)
-# for pgsql choose type=pgsql and port=5432
-icinga2_ido_type: mysql
-icinga2_ido_user: icinga
-icinga2_ido_password: icinga
-icinga2_ido_dbname: icinga
-icinga2_ido_host: "127.0.0.1"
-icinga2_ido_port: 3306
-icinga2_ido_options:
-  cleanup:
-    downtimehistory_age: "0"
-    contactnotifications_age: "0"
-    eventhandlers_age: "0"
-
-# If you want to use a ssl secured mysql connection, activate it here:
-# If the mysql user has set "REQUIRE SSL", it's enough to enable_ssl
-# For a mysql user having "REQUIRE X509" you need a valid client certficate and a private key
-# To verify the mysql server's certificate you need to provide a valid CA certificate
-icinga2_mysql_ssl: no
-icinga2_mysql_ssl_X509: no
-icinga2_mysql_ssl_verify_server_cert: no
-icinga2_mysql_ssl_certs_common_name: "{{ansible_fqdn}}"
-icinga2_mysql_ssl_certs_path: "/etc/ssl"
-icinga2_mysql_ssl_ca_path: "/etc/ssl/ca"
-icinga2_mysql_ssl_certs_ca_path: "{{icinga2_mysql_ssl_ca_path}}/ca.crt"
-icinga2_mysql_ssl_certs_privkey_path: "{{icinga2_mysql_ssl_certs_path}}/server.key"
-icinga2_mysql_ssl_certs_cert_path: "{{icinga2_mysql_ssl_certs_path}}/server.crt"
-icinga2_ansible_user_dir: "{{ ansible_user_dir | quote }}"
 
 # add icinga2 user to ssl group
 icinga2_mysql_ssl_cert_groupname: sslcert
@@ -59,75 +30,3 @@ icinga2_add_user_to_ssl_group: no
 icinga2_apiusers: {}
 icinga2_endpoints: {}
 icinga2_zones: {}
-
-packages_redhat:
-  - icinga2
-  - bash-completion
-  - vim-icinga2
-  - nagios-plugins-all
-  - vim
-  - mysql
-
-packages_debian:
-  - icinga2
-  - bash-completion
-  - vim-icinga2
-  - monitoring-plugins
-  - vim
-  - mysql-client
-
-# Feature Options
-# leave empty to keep icinga2 shipped defaults
-# if you take controll about a config file you have to care about ALL options.
-# !!! Don't forget to remove the empty dict symbol {} !!!
-
-ic2_f_api_options: {}
-#  accept_config: "true"
-#  accept_commands: "true"
-#  ticket_salt: "TicketSalt"
-ic2_f_command_options: {}
-ic2_f_compatlog_options: {}
-ic2_f_debuglog_options: {}
-#  severity: "\"debug\""
-#  path: "LocalStateDir + \"/log/icinga2/debug.log\""
-ic2_f_elasticsearch_options: {}
-#  host: "\"127.0.0.1\""
-#  port: "9200"
-#  index: "\"icinga2\""
-#  enable_send_perfdata: "false"
-#  flush_threshold: "1024"
-#  flush_interval: "10s"
-ic2_f_gelf_options: {}
-#  host: "\"127.0.0.1\""
-#  port: "12201"
-ic2_f_graphite_options: {}
-#  host: "\"127.0.0.1\""
-#  port: "2003"
-ic2_f_livestatus_options: {}
-ic2_f_opentsdb_options: {}
-#  host: "\"127.0.0.1\""
-#  port: "4242"
-ic2_f_perfdata_options: {}
-ic2_f_statusdata_options: {}
-ic2_f_syslog_options: {}
-#  severity: "\"warning\""
-ic2_f_checker_options: {}
-ic2_f_mainlog_options: {}
-#  severity: "\"information\""
-#  path: "LocalStateDir + \"/log/icinga2/icinga2.log\""
-ic2_f_notification_options: {}
-ic2_f_influxdb_options: {}
-#  host: "\"127.0.0.1\""
-#  port: "8086"
-#  database: "\"icinga2\""
-#  flush_threshold: "1024"
-#  flush_interval: "10s"
-#  host_template:
-#    measurement: "\"$host.check_command$\""
-#    tags:
-#      hostname: "\"$host.name$\""
-#  service_template:
-#    measurement: "\"$service.check_command$\""
-#    tags:
-#      hostname: "\"$host.name$\""
-#      service: "\"$service.name$\""

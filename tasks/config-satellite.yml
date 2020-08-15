@@ -1,6 +1,6 @@
 ---
 - debug:
-    msg: "System {{ inventory_hostname }} will be an icinga2 {{icinga2_role}}"
+    msg: "System {{ inventory_hostname }} will be an icinga2 {{ icinga2_role }}"
   tags:
     - install
     - config
@@ -9,8 +9,8 @@
   template:
     src: zones.conf.j2
     dest: /etc/icinga2/zones.conf
-    owner: "{{icinga2_user[ansible_os_family]}}"
-    group: "{{ icinga2_group[ansible_os_family] }}"
+    owner: "{{ icinga2_user }}"
+    group: "{{ icinga2_group  }}"
     mode: 0640
   notify: Test config before restart icinga 2
   tags:
@@ -22,8 +22,8 @@
   template:
     src: constants.conf.j2
     dest: /etc/icinga2/constants.conf
-    owner: "{{icinga2_user[ansible_os_family]}}"
-    group: "{{ icinga2_group[ansible_os_family] }}"
+    owner: "{{ icinga2_user }}"
+    group: "{{ icinga2_group  }}"
     mode: 0640
   notify: Test config before restart icinga 2
 

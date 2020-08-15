@@ -28,10 +28,10 @@ Update or not? `icinga2_state` can be installed,latest,removed,absent,present,bu
 
 ### icinga2 constants
 
-    icinga2_PluginDir: /usr/lib64/nagios/plugins
-    icinga2_ManubulonPluginDir: {{icinga2_PluginDir}}
-    icinga2_PluginContribDir: {{icinga2_PluginDir}}
-    icinga2_nodename: {{hostvars[inventory_hostname]['ansible_fqdn'}}
+    icinga2_plugin_dir: /usr/lib64/nagios/plugins
+    icinga2_ManubulonPluginDir: {{ icinga2_plugin_dir }}
+    icinga2_plugin_contrib_dir: {{ icinga2_plugin_dir }}
+    icinga2_nodename: {{ hostvars[inventory_hostname]['ansible_fqdn' }}
     icinga2_ZoneName: master
     icinga2_ticketsalt: ...
 
@@ -64,7 +64,7 @@ IDO connection options
 
 ### All other features
 
-    ic2_f_debuglog_options:
+    icinga2_features_debuglog_options:
       severity: "\"debug\""
       path: "LocalStateDir + \"/log/icinga2/debug.log\""
 
